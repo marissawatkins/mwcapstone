@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, Integer, create_engine
 import json
 from datetime import datetime
+from flask_migrate import Migrate
 
 database_name = "capstone.db"
 project_direct = os.path.dirname(os.path.abspath(__file__))
@@ -13,6 +14,8 @@ db = SQLAlchemy()
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db = SQLAlchemy(app)
+    migrate = Migrate(app, db)
     db.app = app
     db.init_app(app)
     db.create_all()
