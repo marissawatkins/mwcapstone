@@ -15,7 +15,7 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db = SQLAlchemy(app)
-    app.config.from_object('config')
+    # app.config.from_object('config')
     migrate = Migrate(app, db)
     db.app = app
     db.init_app(app)
