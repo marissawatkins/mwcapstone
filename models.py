@@ -9,8 +9,7 @@ from flask_migrate import Migrate
 # project_direct = os.path.dirname(os.path.abspath(__file__))
 # database_path =  "sqlite:///{}".format(os.path.join(project_direct, database_name))
 database_name = 'capstone'
-database_path = os.environ['database_path']
-database_url = os.environ['DATABASE_URL']
+database_path = os.environ['DATABASE_URL']
 
 db = SQLAlchemy()
 

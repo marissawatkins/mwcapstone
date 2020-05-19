@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 import json
-from models import Actor, Movie
+from models import Actor, Movie, setup_db
 from auth import AuthError, requires_auth
 from flask_migrate import Migrate
 
@@ -19,8 +19,8 @@ def paginate_response(request, selection):
 def create_app(test_config=None):
     app = Flask(__name__)
     CORS(app, resources={r"/api/": {"origins": "*"}})
-    # setup_db(app)
-    # CORS(app)
+    setup_db(app)
+    CORS(app)
 
     # migrate = Migrate(app, db)
 
