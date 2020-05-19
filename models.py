@@ -5,16 +5,18 @@ import json
 from datetime import datetime
 from flask_migrate import Migrate
 
-database_name = "capstone.db"
-project_direct = os.path.dirname(os.path.abspath(__file__))
-database_path =  "sqlite:///{}".format(os.path.join(project_direct, database_name))
+# database_name = "capstone"
+# project_direct = os.path.dirname(os.path.abspath(__file__))
+# database_path =  "sqlite:///{}".format(os.path.join(project_direct, database_name))
+DATABASE_URL="postgres://srjodxxjjrwovb:7db52f15caf9edac205e47e35d7457983868a716fcbf1e3ef1b6549e4689dcaf@ec2-52-70-15-120.compute-1.amazonaws.com:5432/ddbhr7mk4qstd2"
 
 db = SQLAlchemy()
 
-def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db = SQLAlchemy(app)
+def setup_db(app):
+    # app.config["SQLALCHEMY_DATABASE_URI"] = database_path
+    # app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # db = SQLAlchemy(app)
+    app.config.from_object('config')
     migrate = Migrate(app, db)
     db.app = app
     db.init_app(app)
