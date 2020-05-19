@@ -1,2 +1,2 @@
-web: gunicorn mwcapstone:app --preload
+web: gunicorn app:app --preload
 heroku scale web=1
