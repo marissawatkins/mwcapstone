@@ -189,10 +189,10 @@ def create_app(test_config=None):
         }), auth_error.status_code
 
     return app
-app = create_app()
+APP = create_app()
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  
-    app.run(host='0.0.0.0', port=port, debug=True)
+    # port = int(os.environ.get("PORT", 5000))  
+    APP.run(host='0.0.0.0', port=8080, debug=True)
 
 
