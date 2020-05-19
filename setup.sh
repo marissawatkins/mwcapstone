@@ -9,6 +9,6 @@ export ASSISTANT_JWT="Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZkMC1
 export CLIENT_ID='mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh'
 export FLASK_APP=app.py
 export FLASK_ENV=development
-export SQLALCHEMY_DATABASE_URI=postgres://postgres:Lamp,post1@localhost:5432/capstone
+export SQLALCHEMY_DATABASE_URI='postgres://postgres:password@localhost:5432/capstone'
 LOG_LEVEL=DEBUG
 
