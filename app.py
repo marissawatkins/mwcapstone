@@ -29,7 +29,7 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
         response.headers.add('Access-Control-Allow-Methods', 'GET, PATCH, POST, DELETE, OPTIONS')
         return response
-    setup_db(app)
+    # setup_db(app)
 
     # ---- one GET Actors ---- #
     @app.route('/actors')
@@ -194,7 +194,7 @@ def create_app(test_config=None):
 app = create_app()
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  
-    app.run(host='0.0.0.0', port=poart, debug=True)
+    # port = int(os.environ.get("PORT", 5000))  
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
 
