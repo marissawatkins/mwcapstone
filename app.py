@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 import json
-from models import setup_db, Actor, Movie
+from models import Actor, Movie
 from auth import AuthError, requires_auth
 from flask_migrate import Migrate
 
