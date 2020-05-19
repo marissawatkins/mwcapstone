@@ -14,7 +14,7 @@ database_path = 'postgres://postgres:Lamp,post1@localhost:5432/capstone'
 db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):
-    app.config.from_object('config')
+    # app.config.from_object('config')
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     # db = SQLAlchemy(app)
