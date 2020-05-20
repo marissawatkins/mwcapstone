@@ -92,7 +92,7 @@ ALTER TABLE ONLY public.Movie ALTER COLUMN id SET DEFAULT nextval('public.Movie_
 
 
 --
--- Name: actor id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: Actor id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.Actor ALTER COLUMN id SET DEFAULT nextval('public.Actor_id_seq'::regclass);
