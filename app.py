@@ -24,6 +24,13 @@ def create_app(test_config=None):
 
     # migrate = Migrate(app, db)
 
+    @app.route('/')
+    def get_greeting():
+        excited = os.environ['EXCITED']
+        greeting = "hello"
+        if excited == 'true': greeting = greeting + "!"
+        return greeting
+
     @app.after_request
     def after_request(response):
         response.headers.add('Access-Control-Allow-Headers', 'Content-Type, Authorization, true')
