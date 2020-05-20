@@ -12,8 +12,8 @@ from flask_migrate import Migrate
 database_path = os.environ.get('DATABASE_URL')
 if not database_path:
     database_name = "capstone"
-    database_path = 'postgres://srjodxxjjrwovb:7db52f15caf9edac205e47e35d7457983868a716fcbf1e3ef1b6549e4689dcaf@ec2-52-70-15-120.compute-1.amazonaws.com:5432/ddbhr7mk4qstd2'
-    # database_path = 'postgres://postgres:password@localhost:5432/capstone'
+    database_path = database_path = 'postgres://srjodxxjjrwovb:7db52f15caf9edac205e47e35d7457983868a716fcbf1e3ef1b6549e4689dcaf@ec2-52-70-15-120.compute-1.amazonaws.com:5432/ddbhr7mk4qstd2'
+#'postgres://postgres:Lamp,post1@localhost:5432/capstone'
 
 db = SQLAlchemy()
 

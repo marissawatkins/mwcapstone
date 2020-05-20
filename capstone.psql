@@ -14,19 +14,20 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: movies; Type: TABLE; Schema: public; Owner: lin
+-- Name: movies; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.movies (
+CREATE TABLE public.Movie (
     id integer NOT NULL,
-    title text NOT NULL, release_date date NOT NULL
+    title text NOT NULL, 
+    release_date date NOT NULL
 );
 
 
-ALTER TABLE public.movies OWNER TO lin;
+ALTER TABLE public.Movie OWNER TO postgres;
 
 --
--- Name: Movie_id_seq; Type: SEQUENCE; Schema: public; Owner: lin
+-- Name: Movie_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.Movie_id_seq
@@ -38,20 +39,20 @@ CREATE SEQUENCE public.Movie_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.Movie_id_seq OWNER TO lin;
+ALTER TABLE public.Movie_id_seq OWNER TO postgres;
 
 --
--- Name: Movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lin
+-- Name: Movie_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.Movie_id_seq OWNED BY public.movies.id;
+ALTER SEQUENCE public.Movie_id_seq OWNED BY public.Movie.id;
 
 
 --
--- Name: actors; Type: TABLE; Schema: public; Owner: lin
+-- Name: actors; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE public.actors(
+CREATE TABLE public.Actor(
     id integer NOT NULL,
     name text NOT NULL,
     age integer NOT NULL,
@@ -59,10 +60,10 @@ CREATE TABLE public.actors(
 );
 
 
-ALTER TABLE public.actors OWNER TO lin;
+ALTER TABLE public.Actor OWNER TO postgres;
 
 --
--- Name: Actor_id_seq; Type: SEQUENCE; Schema: public; Owner: lin
+-- Name: Actor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.Actor_id_seq
@@ -74,48 +75,48 @@ CREATE SEQUENCE public.Actor_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.Actor_id_seq OWNER TO lin;
+ALTER TABLE public.Actor_id_seq OWNER TO postgres;
 
 --
--- Name: Actor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: lin
+-- Name: Actor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE public.Actor_id_seq OWNED BY public.actors.id;
-
-
---
--- Name: Movie_id; Type: DEFAULT; Schema: public; Owner: lin
---
-
-ALTER TABLE ONLY public.movies ALTER COLUMN id SET DEFAULT nextval('public.Movie_id_seq'::regclass);
+ALTER SEQUENCE public.Actor_id_seq OWNED BY public.Actor.id;
 
 
 --
--- Name: actor id; Type: DEFAULT; Schema: public; Owner: lin
+-- Name: Movie_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.actors ALTER COLUMN id SET DEFAULT nextval('public.Actor_id_seq'::regclass);
+ALTER TABLE ONLY public.Movie ALTER COLUMN id SET DEFAULT nextval('public.Movie_id_seq'::regclass);
 
 
 --
--- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: lin
+-- Name: actor id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-COPY public.actors (id, name, age, gender) FROM stdin;
-1	Johnny Depp	56	Male
-2	Scarlett Johansson	35	Female
-3	Samuel L. Jackson 71	Male
+ALTER TABLE ONLY public.Actor ALTER COLUMN id SET DEFAULT nextval('public.Actor_id_seq'::regclass);
+
+
+--
+-- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.Actor (id, name, age, gender) FROM stdin;
+1   Johnny Depp 56  Male
+2	Scarlett Johansson	35  Female
+3	Samuel L. Jackson 71    Male
 4	Natalie Portman	38	Female
-5	Denzel Washington	65	Male
-6	Leonardo DiCaprio	45	Male
-\.
+5	Denzel Washington	65  Male
+6	Leonardo DiCaprio	45  Male
+
 
 
 --
--- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: lin
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.movies (id, title, release_date) FROM stdin;
+COPY public.Movie (id, title, release_date) FROM stdin;
 1	Back to the Future	1985-07-03
 2	Willy Wonka and the Chocolate Factory	1971-06-30
 3	Inglourious Basterds	2009-08-21
@@ -124,33 +125,33 @@ COPY public.movies (id, title, release_date) FROM stdin;
 6	Jiro Dreams of Sushi	2012-03-09 
 7	The Witch 2015-10-18 
 8	Monty Python and the Holy Grail	1975-27-04 
-\.
+
 
 --
--- Name: Actor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lin
+-- Name: Actor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.Actor_id_seq', 6, true);
 
 
 --
--- Name: Movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: lin
+-- Name: Movie_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.Movie_id_seq', 8, true);
 
 
 --
--- Name: actors actors_pkey; Type: CONSTRAINT; Schema: public; Owner: lin
+-- Name: Actor actors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.actors
+ALTER TABLE ONLY public.Actor
     ADD CONSTRAINT actors_pkey PRIMARY KEY (id);
 
 
 --
--- Name: questions movies_pkey; Type: CONSTRAINT; Schema: public; Owner: lin
+-- Name: questions movies_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.movies
+ALTER TABLE ONLY public.Movie
     ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
