@@ -12,8 +12,8 @@ from flask_migrate import Migrate
 database_path = os.environ.get('DATABASE_URL')
 if not database_path:
     database_name = "capstone"
-    # database_path = "postgres://{}/{}".format('localhost:5432', database_name)
     database_path = 'postgres://srjodxxjjrwovb:7db52f15caf9edac205e47e35d7457983868a716fcbf1e3ef1b6549e4689dcaf@ec2-52-70-15-120.compute-1.amazonaws.com:5432/ddbhr7mk4qstd2'
+    # database_path = 'postgres://postgres:password@localhost:5432/capstone'
 
 db = SQLAlchemy()
 
@@ -33,10 +33,10 @@ def setup_db(app, database_path=database_path):
 class Actor(db.Model):
     __tablename__ = 'Actor'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=True)
-    gender = Column(String, nullable=True)
-    age = Column(Integer, nullable=True)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=True)
+    gender = db.Column(db.String, nullable=True)
+    age = db.Column(db.Integer, nullable=True)
 
     def __init__(self, name, age, gender):
         self.name = name
@@ -69,9 +69,9 @@ class Actor(db.Model):
 class Movie(db.Model):
     __tablename__ = 'Movie'
 
-    id = Column(Integer, primary_key=True)
-    title = Column(String, nullable=True)
-    release_date = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=True)
+    release_date = db.Column(db.String)
 
     def __init__(self, title, release_date):
         self.title = title
