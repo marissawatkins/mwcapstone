@@ -1,4 +1,4 @@
-export DATABASE_URL='postgres://ahiowinkqhmxhm:5156e97ad8c9bc51844b9b46f40c75ce639cc0b11508c3f46f25d3e6599173bc@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d3p52lr6dlv66'
+export DATABASE_URL='postgres://npugwmlqsehgdt:f404256bb4085249a9eb47ed884aba19cd28f3951b7c9e49799231ac27515811@ec2-52-7-39-178.compute-1.amazonaws.com:5432/d745rtq4tte8gi'
 # export DATABASE_URL='postgres://postgres:password@localhost:5432/capstone'
 export SQLALCHEMY_TRACK_MODIFICATIONS=False
 export AUTH0_DOMAIN="mwcapstone.auth0.com"
@@ -10,7 +10,7 @@ export ASSISTANT_JWT="Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZkMC1
 export CLIENT_ID='mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh'
 export FLASK_APP=app.py
 export FLASK_ENV=development
-export SQLALCHEMY_DATABASE_URI= 'postgres://ahiowinkqhmxhm:5156e97ad8c9bc51844b9b46f40c75ce639cc0b11508c3f46f25d3e6599173bc@ec2-52-207-93-32.compute-1.amazonaws.com:5432/d3p52lr6dlv66'
+export SQLALCHEMY_DATABASE_URI = 'postgres://npugwmlqsehgdt:f404256bb4085249a9eb47ed884aba19cd28f3951b7c9e49799231ac27515811@ec2-52-7-39-178.compute-1.amazonaws.com:5432/d745rtq4tte8gi'
 # export SQLALCHEMY_DATABASE_URI='postgres://postgres:password1@localhost:5432/capstone'
 LOG_LEVEL=DEBUG
 export EXCITED=true

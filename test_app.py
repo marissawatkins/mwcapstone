@@ -21,7 +21,7 @@ class CastingTestCase(unittest.TestCase):
         self.database_name = "capstone"
         self.database_path = 'postgres://postgres:password@localhost:5432/capstone'
         setup_db(self.app, self.database_path)
-        # 'postgres://upkxkdyhbqlgle:1012dac3456250a1040c82e8dfbf7aece52fc79cef061e0808e49a755f56e9a4@ec2-52-71-55-81.compute-1.amazonaws.com:5432/dd20srutb23637'
+        # 'postgres://npugwmlqsehgdt:f404256bb4085249a9eb47ed884aba19cd28f3951b7c9e49799231ac27515811@ec2-52-7-39-178.compute-1.amazonaws.com:5432/d745rtq4tte8gi'
         # binds the app to the current context
         with self.app.app_context():
             self.db = SQLAlchemy()
