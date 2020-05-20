@@ -11,7 +11,7 @@ export CLIENT_ID='mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh'
 export FLASK_APP=app.py
 export FLASK_ENV=development
 export SQLALCHEMY_DATABASE_URI='postgres://upkxkdyhbqlgle:1012dac3456250a1040c82e8dfbf7aece52fc79cef061e0808e49a755f56e9a4@ec2-52-71-55-81.compute-1.amazonaws.com:5432/dd20srutb23637'
-# export SQLALCHEMY_DATABASE_URI='postgres://postgres:password@localhost:5432/capstone'
+# export SQLALCHEMY_DATABASE_URI='postgres://postgres:password1@localhost:5432/capstone'
 LOG_LEVEL=DEBUG
 export EXCITED=true
 
