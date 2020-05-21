@@ -71,7 +71,8 @@ def create_app(test_config=None):
         db.session.close()
         return jsonify({
             'success': True,
-            'message': "Delete success"
+            'message': "Delete success",
+            'delete': id_actor
         })
 
     @app.route('/movies/delete/<int:id_movies>', methods=["DELETE"])
@@ -82,7 +83,8 @@ def create_app(test_config=None):
         db.session.close()
         return jsonify({
             'success': True,
-            'message': "Delete success"
+            'message': "Delete success",
+            'delete': id_movies
         })
 
     # --- POST actors and movies --- #
