@@ -39,10 +39,17 @@ def create_app(test_config=None):
     # setup_db(app)
 
     # ---- one GET Actors ---- #
-    @app.route('/actors')
+    @app.route('/actors', methods=['GET'])
     @requires_auth('get:actors')
     def get_actors():
         try:
+            actors = Actor.query.order_by(Actor.created).all()
+            formatted_actors = [actor.format() for actor in actors]
+            selected_actors = paginate_response(request, formatted_actors)
+
+            if len(selected_actors) == 0:
+                abort(404)
+            
             return jsonify({
                 'success': True,
                 'actors': paginated_selection(request, Actor.query.order_by(Actor.id).all())
@@ -51,10 +58,16 @@ def create_app(test_config=None):
             abort(422)
 
     # --- second GET Movies --- #
-    @app.route('/movies')
+    @app.route('/movies', methods=['GET'])
     @requires_auth('get:movies')
     def get_movies():
         try:
+            movies = Movie.query.order_by(Movie.created).all()
+            formatted_movies = [movie.format() for movie in movies]
+            selected_movies = paginate_response(request, formatted_movies)
+            if len(selected_movies) == 0:
+                abort(404)
+
             return jsonify({
                 'success': True,
                 'movies': paginated_selection(request, Movie.query.order_by(Movie.id).all())
@@ -66,26 +79,42 @@ def create_app(test_config=None):
     @app.route('/actors/delete/<int:id_actor>', methods=["DELETE"])
     @requires_auth('delete:actors')
     def delete_actors(id_actor):
-        Actor.query.filter(Actor.id == id_actor).delete()
-        db.session.commit()
-        db.session.close()
-        return jsonify({
-            'success': True,
-            'message': "Delete success",
-            'delete': id_actor
-        })
+        try:
+            actors = Actor.query.filter(Actor.id == id_actor).one_or_none()
+            if actors is None:
+                abort(404)
+
+            actors.delete()
+            # db.session.commit()
+            # db.session.close()
+            return jsonify({
+                'success': True,
+                'message': "Delete success",
+                'delete': id_actor,
+                'total_actors': len(Actor.query.all())
+            }), 200
+        except:
+            abort(422)
 
     @app.route('/movies/delete/<int:id_movies>', methods=["DELETE"])
     @requires_auth('delete:movies')
     def delete_movies(id_movies):
-        Movie.query.filter(Movie.id == id_movies).delete()
-        db.session.commit()
-        db.session.close()
-        return jsonify({
-            'success': True,
-            'message': "Delete success",
-            'delete': id_movies
-        })
+        try:
+            movies = Movie.query.filter(Movie.id == id_movies).delete()
+            if movies is None:
+                abort(404)
+
+            movies.delete()
+            # db.session.commit()
+            # db.session.close()
+            return jsonify({
+                'success': True,
+                'message': "Delete success",
+                'delete': id_movies,
+                'total_movies': len(Movie.query.all())
+            }), 200
+        except:
+            abort(422)
 
     # --- POST actors and movies --- #
     @app.route('/actors/create', methods=['POST'])
@@ -102,61 +131,74 @@ def create_app(test_config=None):
         if any(arg is None for arg in [name, age, gender]) or '' in [name, age, gender]:
             abort(400, 'Must fill in required fields')
 
-        new_actor = Actor(name=name, age=age, gender=gender)
-        new_actor.insert()
+        try: 
+            new_actor = Actor(name=new_name, age=new_age, gender=new_gender)
+            new_actor.insert()
 
-        return jsonify({
-            'success': True,
-            'actors': [Actor.query.get(new_actor.id).format()]
-        })
+            return jsonify({
+                'success': True,
+                'created': new_actor.id,
+                'actors': [Actor.query.get(new_actor.id).format()]
+            }), 200
+        except:
+            abort(422)
 
     @app.route('/movies/create', methods=['POST'])
     @requires_auth('post:movies')
     def new_movies():
         body = request.json
-        title = body.get('title', None)
-        release_date = body.get('release_date', None)
+        new_title = body.get('title', None)
+        new_release_date = body.get('release_date', None)
 
-        if title in list(map(Movie.get_title, Movie.query.all())):
-            abort(400, 'Title is oppupied')
+        # if title in list(map(Movie.get_title, Movie.query.all())):
+        #     abort(400, 'Title is oppupied')
 
-        if any(arg in None for arg in [title, release_date]) or '' in [title, release_date]:
+        if any(arg in None for arg in [new_title, new_release_date]) or '' in [new_title, new_release_date]:
             abort(400, 'Must fill in required fields')
 
-        new_movie = Movie(title=title, release_date=release_date)
+        new_movie = Movie(title=new_title, release_date=new_release_date)
         new_movie.insert()
 
         return jsonify({
             'success': True,
+            'created': new_movie.id,
             'movies': [Movie.query.get(new_movie.id).format()]
-        })
+        }), 200
+    
 
     # --- PATCH Actors and Movies --- #
     @app.route('/actors/patch/<int:id_actor>', methods=['PATCH'])
     @requires_auth('patch:actors')
     def patch_actors(id_actor):
-        actor = Actor.query.get(id_actor)
+        actor = Actor.query.filter(Actor.id == id_actor).one_or_none()
 
         if actor is None:
             abort(404)
 
-        body = request.json
-        name = body.get('name', None)
-        age = body.get('age', None)
-        gender = body.get('gender', None)
+        data = request.get_json()
+        # body = request.json
+        name = data.get('name')
+        age = data.get('age')
+        gender = data.get('gender')
 
-        if any(arg is None for arg in [name, age, gender]) or '' in [name, age, gender]:
-            abort(400, 'm=Must fill in required fields')
-
-        actor.name = name
-        actor.age = age
-        actor.gender = gender
-        actor.update()
-
-        return jsonify({
-            'success': True,
-            'actors': [Actor.query.get(id_actor).format()]
-        })
+        try:
+            actor.name = name
+            actor.age = age
+            actor.gender = gender
+            actor.update()
+        except:
+            abort(422)
+        actors = Actor.query.all()
+        try:
+            actors = [actor.format() for actor in actors]
+            # if any(arg is None for arg in [name, age, gender]) or '' in [name, age, gender]:
+            #     abort(400, 'm=Must fill in required fields')
+            return jsonify({
+                'success': True,
+                'actors': actors
+            }), 200
+        except:
+            abort(500)
 
     @app.route('/movies/patch/<int:id_movies>', methods=['PATCH'])
     @requires_auth('patch:movies')
@@ -166,29 +208,60 @@ def create_app(test_config=None):
         if movie is None:
             abort(404)
 
-        body = request.json
-        title = body.get('title', None)
-        release_date = body.get('release_date', None)
+        body = request.get_json()
+        new_title = body.get('title', None)
+        new_release_date = body.get('release_date', None)
 
-        if any(arg is None for arg in [title, release_date]) or '' in [title, release_date]:
-            abort(400, 'm=Must fill in required fields')
+        #
+        try:
+            movie = Movie.query.filter(Movie.id == id_movies).one_or_none()
+            if movie is None:
+                abort(404)
+            if any(arg is None for arg in [new_title, new_release_date]) or '' in [new_title, new_release_date]:
+                abort(400, 'm=Must fill in required fields')
 
-        movie.title = title
-        movie.release_date = release_date
-        movie.update()
+            movie.title = new_title
+            movie.release_date = new_release_date
+            movie.update()
 
-        return jsonify({
-            'success': False,
-            'movies': [Movie.query.get(id_movies).format()]
-        })
+            return jsonify({
+                'success': False,
+                'movie': [Movie.query.get(id_movies).format()]
+            }), 200
+        except:
+            abort(401)
 
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
             'success': False,
+            'error': 404,
+            'message': 'Not Found'
+        }), 404
+
+    @app.errorhandler(422)
+    def unproccessable(error):
+        return jsonify({
+            'success': False,
             'error': 422,
-            'message': 'Unproccessable'
-        })
+            'message': "unproccessable"
+        }), 422
+
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            'success': False,
+            'error': 400,
+            'message': "Bad Request"
+        }), 400
+
+    @app.errorhandler(401)
+    def unathorized(error):
+        return jsonify({
+            'success': False,
+            'error': 401,
+            'message': "unathorized"
+        }), 401
 
     @app.errorhandler(AuthError)
     def auth_error(auth_error):

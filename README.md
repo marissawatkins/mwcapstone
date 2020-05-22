@@ -87,6 +87,9 @@ delete:movie
         * Password: ```bash Coffeeisgood1```
         * JWT: ```bash Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZkMC1Dc3JzQWJkcG1qQzVOZmo3dSJ9.eyJpc3MiOiJodHRwczovL213Y2Fwc3RvbmUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlYzJkZWE2NmEzMDU0MGNkOTg0ZGU0MiIsImF1ZCI6Im13Y2Fwc3RvbmUiLCJpYXQiOjE1ODk4NDE2NTIsImV4cCI6MTU4OTg0ODg1MiwiYXpwIjoibUpMZ25xdERpdzFnbHk2cXBsOFNjQjE3ZmlKNXdJTGgiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.f9I1x0BXRUt5qkozLTZljl6nppXhZNcWprwS5Gm8W7yjmsNBCJrqsKoGnHnWBOjuQQXa5tIcwmMmv5c8X5NjNNe9-Egzk9lzFN9GnhHp6ltInoNP0jbxB95N_5FclNTfi0SRFeJSEsfKgjDDuD5lg2yPc_jMJBrEtibuseU6smLu3jdCU39ua7_BDSwjEdU-VE1Mv_XKWe5w4AuegoFP34uXw16jfxvKux5TjlAAXJNoLr95s0WT0ThqgcidrbtllXEjgFe8-W02sasjZwdXKAnviacuTnOOUdNj_d4ksAEBEsprJ_RsejKSXflkC0BcFtGEohDm7gCxcl9HhMw9lA&expires_in=7200&token_type=Bearer```
 
+        new = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZkMC1Dc3JzQWJkcG1qQzVOZmo3dSJ9.eyJpc3MiOiJodHRwczovL213Y2Fwc3RvbmUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVlYzJkZWE2NmEzMDU0MGNkOTg0ZGU0MiIsImF1ZCI6Im13Y2Fwc3RvbmUiLCJpYXQiOjE1OTAxMDY0OTcsImV4cCI6MTU5MDExMzY5NywiYXpwIjoibUpMZ25xdERpdzFnbHk2cXBsOFNjQjE3ZmlKNXdJTGgiLCJzY29wZSI6IiIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTphY3RvcnMiLCJkZWxldGU6bW92aWVzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwYXRjaDptb3ZpZXMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.guEfdh0IoPj4mHAs6AaXaHrHvCjIsxizuMf_u4H3Ao5m9tA2BIXF5sPux5nmKaGQF8qVifwv15c3HMe-u_Qmoy9D7muzKo2vcOEcoCbWE27lkErPRxF9jOoCpHNK1PwuASepfgzl6SXXKDTzTLmwzeG5rwYwsdNy9-mW0a-6prPXM_TBbakfxr1ynjOxKmNcTPSzRM7Vtixz0vPU3Q0UWa63URQUINZn187qUu5lpAuC96KAur9e0Sw4Q42k7bKDY_KbNvBazilVLesXXlF0vvG5JvYsxiI4PaJgd7tpKva-EimNd3p0085t0htC9Ptv0h3Sl6G4k0mZGqLPEog9fg&expires_in=7200&token_type=Bearer
+
+
 
 #### Setup Heroku
 * Create a Heroku account
@@ -106,7 +109,15 @@ flask run
 All endpoints written in ```bash app.py```, models in ```bash models.py```, config variable in ```bash config.py```  and all dependencies are in ```bash requirements.txt```
 
 #### Test Run
-To run a test, use command ```bash python test_app.py ```.
+To run a test, use command ```bash python test_app.py or $ python -m unittest test_app.py ``` 
+
+#### Links
+* Link to running Auth0:
+    ```bash #https://mwcapstone.auth0.com/authorize?audience=mwcapstone&response_type=token&client_id=mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh&redirect_uri=http://localhost:8080/login-results
+    (make sure under applications->advanced settings->Grant types->implicit checkbox is chcecked)```
+
+* Link to running Heroku:
+    ```bash https://mwcapstone.herokuapp.com/```
 
 #### API Documentation and RBAC controls
 #### Error Handling
@@ -292,18 +303,4 @@ The API will return objects when requests fail due to a certain type of conditio
     }
 ```
 
-castingassistant@test.com
-Coffeeisgood1
-
-castingdirector@test.com
-Coffeeisgood1
-
-execprod@test.com
-Coffeeisgood1
-
 https://{{YOUR_DOMAIN}}/authorize?audience={{API_IDENTIFIER}}&response_type=token&client_id={{YOUR_CLIENT_ID}}&redirect_uri={{YOUR_CALLBACK_URI}}
-
-#https://mwcapstone.auth0.com/authorize?audience=mwcapstone&response_type=token&client_id=mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh&redirect_uri=http://localhost:8080/login-results
-make sure under applications->advanced settings->Grant types->"implicit checkbox is chcecked
-
-create database "capstone";
