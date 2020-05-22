@@ -42,6 +42,13 @@ Once you get your database running, enter these commands:
 ```bash
 database_path = "postgres://{}:{}@{}/{}".format(<user-name>,'<password>','localhost:5432', <database_name>)"
 ```
+#### Links
+* Link to running Auth0:
+    ```bash #https://mwcapstone.auth0.com/authorize?audience=mwcapstone&response_type=token&client_id=mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh&redirect_uri=http://localhost:8080/login-results
+    (make sure under applications->advanced settings->Grant types->implicit checkbox is chcecked)```
+
+* Link to running Heroku:
+    ```bash https://mwcapstone.herokuapp.com/```
 
 #### Setting up setup.sh
 After installing dependencies, execute the bash file ```setup.sh``` to set the user, Auth0 credentials and the remote db url by nagivating to the root directoy of the project and run the following command
@@ -110,14 +117,6 @@ All endpoints written in ```bash app.py```, models in ```bash models.py```, conf
 
 #### Test Run
 To run a test, use command ```bash python test_app.py or $ python -m unittest test_app.py ``` 
-
-#### Links
-* Link to running Auth0:
-    ```bash #https://mwcapstone.auth0.com/authorize?audience=mwcapstone&response_type=token&client_id=mJLgnqtDiw1gly6qpl8ScB17fiJ5wILh&redirect_uri=http://localhost:8080/login-results
-    (make sure under applications->advanced settings->Grant types->implicit checkbox is chcecked)```
-
-* Link to running Heroku:
-    ```bash https://mwcapstone.herokuapp.com/```
 
 #### API Documentation and RBAC controls
 #### Error Handling
